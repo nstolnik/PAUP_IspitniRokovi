@@ -1,0 +1,45 @@
+﻿@using IspitniRokovi.Models
+@model UrediKorisnikaViewModel
+@{
+    ViewBag.Title = "Uredi korisnika";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id, new { Value = Model.id })
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.username)</td>
+            <td>@Html.TextBoxFor(model => model.username)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.email)</td>
+            <td>@Html.TextBoxFor(model => model.email)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.name)</td>
+            <td>@Html.TextBoxFor(model => model.name)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.surname)</td>
+            <td>@Html.TextBoxFor(model => model.surname)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.role)</td>
+            <td>@Html.DropDownListFor(model => model.role, new List<SelectListItem> { new SelectListItem { Text = "Korisnik", Value = "0" }, new SelectListItem { Text = "Admin", Value = "1" } })</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit">Spremi</button>
+}
+
+

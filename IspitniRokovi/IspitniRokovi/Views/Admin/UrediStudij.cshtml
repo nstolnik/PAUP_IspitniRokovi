@@ -1,0 +1,28 @@
+﻿@using IspitniRokovi.Models
+@model Studiji
+@{
+    ViewBag.Title = "Dodaj studij";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id, new { Value = Model.id })
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.ime)</td>
+            <td>@Html.TextBoxFor(model => model.ime, new { Value = Model.ime })</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit">Spremi</button>
+}
+

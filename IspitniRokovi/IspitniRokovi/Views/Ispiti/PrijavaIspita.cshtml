@@ -1,0 +1,77 @@
+﻿@using IspitniRokovi.Models
+@model Ispiti
+@{
+    ViewBag.Title = "Prijavi ispit";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="container">
+        <div class="row vertical-offset-100">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Prijavite ispit</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form accept-charset="UTF-8" role="form" class="well">
+                            <fieldset>
+                                <div class="form-group ">
+                                    <p>Odaberi kolegij:</p>
+                                    @try
+                                    {
+                                    @Html.DropDownListFor(model => model.kolegij_id, (SelectList)ViewBag.Kolegiji)
+                                    }
+                                    catch
+                                    {
+                                        
+                                            <script>alert("@ViewBag.AlertMessage");</script>
+                                        
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <p>Datum:</p>
+                                    @Html.TextBoxFor(model => model.datum, new { id = "dateTimeInput", required="required" })
+                                </div>
+                                <div class="form-group">
+                                    <p>AK Godina:</p>
+                                    @Html.DropDownListFor(model => model.ak_godina, new List<SelectListItem> { new SelectListItem { Text = "2017/2018", Value = "2017/2018" }, new SelectListItem { Text = "2016/2017", Value = "2016/2017" } })
+                                </div>
+                                    <div class="form-group">
+                                        <p>Vrsta:</p>
+                                        @Html.DropDownListFor(model => model.tip, new List<SelectListItem> { new SelectListItem { Text = Ispiti.typesList[Ispiti.ISPIT_REDOVNI], Value = Ispiti.ISPIT_REDOVNI.ToString() }, new SelectListItem { Text = Ispiti.typesList[Ispiti.ISPIT_IZVANREDNI], Value = Ispiti.ISPIT_IZVANREDNI.ToString() } })
+                                    </div>
+                              
+                                <input class="btn btn-lg btn-success" type="submit" value="Dodaj">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+
+        $('#dateTimeInput').datetimepicker({
+            format: "YYYY-MM-DD HH:mm"
+        });
+
+    });
+</script>
+
+

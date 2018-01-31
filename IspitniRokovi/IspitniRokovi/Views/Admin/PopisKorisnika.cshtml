@@ -1,0 +1,52 @@
+﻿@using IspitniRokovi.Models
+@model List<Korisnici>
+@{
+    ViewBag.Title = "Popis korisnika";
+}
+
+<div class="mt-20"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <div class="well">
+                <ul class="nav nav-list">
+                    <li class="btn-info"><a href="@Url.Action("PopisKorisnika","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Korisnici</a></li>
+                    <li><a href="@Url.Action("PopisIspita","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Ispiti</a></li>
+                    <li><a href="@Url.Action("PopisKolegija","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Kolegiji</a></li>
+                    <li><a href="@Url.Action("PopisStudija","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Studiji</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 col-xs-12">
+            <div class="well">
+                <div class="container">
+                    <div class="row col-md-6 col-md-offset-2 custyle">
+                        <table class="table table-striped custab table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Korisničko ime</th>
+                                    <th>Ime</th>
+                                    <th>Prezime</th>
+                                    <th>Email</th>
+                                    <th>Uloga</th>
+                                    <th class="text-center" style="margin-bottom:5px;">Action</th>
+                                </tr>
+                            </thead>
+                            @foreach (Korisnici k in Model)
+                            {
+                                <tr>
+                                    <td>@k.username</td>
+                                    <td>@k.ime</td>
+                                    <td>@k.prezime</td>
+                                    <td>@k.email</td>
+                                    <td>@Korisnici.rolesList[k.uloga]</td>
+                                    <td class="text-center"><a class='btn btn-info btn-xs' href="@Url.Action("UrediKorisnika", "Admin", new { Id = k.id })"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="@Url.Action("ObrisiKorisnika", "Admin", new { Id = k.id })" class="btn btn-danger btn-xs" onclick="return confirm('Sigurni ste da želite obrisati ovog korisnika?')"><span class="glyphicon glyphicon-remove"></span> Izbriši</a></td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@using IspitniRokovi.Models
+@model Kolegiji
+@{
+    ViewBag.Title = "Uredi kolegij";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id, new { Value = Model.id })
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.ime)</td>
+            <td>@Html.TextBoxFor(model => model.ime, new { Value = Model.ime })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.korisnik_id)</td>
+            <td>@Html.DropDownListFor(model => model.korisnik_id, (SelectList)ViewBag.Profesori, new { Value = Model.korisnik_id })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.studij_id)</td>
+            <td>@Html.DropDownListFor(model => model.studij_id, (SelectList)ViewBag.Studiji, new { Value = Model.studij_id })</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit">Spremi</button>
+}
+

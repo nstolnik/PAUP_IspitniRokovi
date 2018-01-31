@@ -1,0 +1,36 @@
+﻿@using IspitniRokovi.Models
+@model List<PopisIspitaViewModel>
+@{
+    ViewBag.Title = "Popis ispita";
+}
+
+<div class="mt-20"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9 col-xs-12">
+            <table class="table table-striped custab table-bordered">
+                <thead>
+                    <tr>
+                        <th>Kolegij</th>
+                        <th>Vrijeme</th>
+                        <th>Ak. godina</th>
+                        <th>Tip</th>
+                        <th>Profesor</th>
+                        <th>Studij</th>
+                    </tr>
+                </thead>
+                @foreach (PopisIspitaViewModel i in Model)
+                {
+                    <tr>
+                        <td>@i.kolegij.ime</td>
+                        <td>@i.ispit.datum.ToString("HH:mm dd.MM.yyyy")</td>
+                        <td>@i.ispit.ak_godina</td>
+                        <td>@Ispiti.typesList[i.ispit.tip]</td>
+                        <td>@(i.profesor.ime + " " + i.profesor.prezime)</td>
+                        <td>@i.studij.ime</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

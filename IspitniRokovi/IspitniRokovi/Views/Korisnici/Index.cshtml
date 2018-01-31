@@ -1,0 +1,21 @@
+﻿@using IspitniRokovi.Models
+@model List<Korisnici>
+@{
+    ViewBag.Title = "Korisnici";
+}
+
+<table>
+    <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Email</th>
+    </tr>
+    @foreach (Korisnici k in Model)
+    {
+        <tr>
+            <td>@k.ime</td>
+            <td>@k.prezime</td>
+            <td>@k.email</td>
+        </tr>
+    }
+</table>

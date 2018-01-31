@@ -1,0 +1,49 @@
+﻿@using IspitniRokovi.Models
+@model List<PopisKolegijaViewModel>
+@{
+    ViewBag.Title = "Popis kolegija";
+}
+
+<div class="mt-20"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <div class="well">
+                <ul class="nav nav-list">
+                    <li><a href="@Url.Action("PopisKorisnika","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Korisnici</a></li>
+                    <li><a href="@Url.Action("PopisIspita","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Ispiti</a></li>
+                    <li class="btn-info"><a href="@Url.Action("PopisKolegija","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Kolegiji</a></li>
+                    <li><a href="@Url.Action("PopisStudija","Admin")"><span class="glyphicon glyphicon-tasks" style="color:black;"></span> Studiji</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 col-xs-12">
+            <div class="well">
+                <div class="container">
+                    <div class="row col-md-6 col-md-offset-2 custyle">
+                        <table class="table table-striped custab table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Naziv</th>
+                                    <th>Profesor</th>
+                                    <th>Studij</th>
+                                    <th class="text-center" style="margin-bottom:5px;">Action</th>
+                                </tr>
+                            </thead>
+                            @foreach (PopisKolegijaViewModel k in Model)
+                            {
+                                <tr>
+                                    <td>@k.kolegij.ime</td>
+                                    <td>@(k.profesor.ime + " " + k.profesor.prezime)</td>
+                                    <td>@k.studij.ime</td>
+                                    <td class="text-center"><a class='btn btn-info btn-xs' href="@Url.Action("UrediKolegij", "Admin", new { Id = k.kolegij.id })"><span class="glyphicon glyphicon-edit"></span> Uredi</a> <a href="@Url.Action("ObrisiKolegij", "Admin", new { Id = k.kolegij.id })" class="btn btn-danger btn-xs" onclick="return confirm('Sigurni ste da želite obrisati ovaj kolegij?\n Svi ispiti od ovog kolegija će biti obrisani')"><span class="glyphicon glyphicon-remove"></span> Izbriši</a></td>
+                                </tr>
+                            }
+                        </table>
+                        <a class='btn btn-success' href="@Url.Action("DodajKolegij", "Admin")"><span class="glyphicon glyphicon-plus-sign"></span> Dodaj novi kolegij</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

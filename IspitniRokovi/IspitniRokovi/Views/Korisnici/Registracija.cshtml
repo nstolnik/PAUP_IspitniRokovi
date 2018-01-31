@@ -1,0 +1,47 @@
+﻿@using IspitniRokovi.Models
+@model RegisterViewModel
+@{
+    ViewBag.Title = "Registracija";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.username)</td>
+            <td>@Html.TextBoxFor(model => model.username, new { required = "required" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.password)</td>
+            <td>@Html.PasswordFor(model => model.password, new { required = "required" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.confirmPassword)</td>
+            <td>@Html.PasswordFor(model => model.confirmPassword, new { required = "required" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.email)</td>
+            <td>@Html.TextBoxFor(model => model.email, new { required = "required" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.name)</td>
+            <td>@Html.TextBoxFor(model => model.name, new { required = "required" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.surname)</td>
+            <td>@Html.TextBoxFor(model => model.surname, new { required = "required" })</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit">Registracija</button>
+}

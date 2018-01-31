@@ -1,0 +1,51 @@
+﻿@using IspitniRokovi.Models
+@model Ispiti
+@{
+    ViewBag.Title = "Uredi ispit";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id, new { Value = Model.id })
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.kolegij_id)</td>
+            <td>@Html.DropDownListFor(model => model.kolegij_id, (SelectList)ViewBag.Kolegiji, new { Value = Model.kolegij_id })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.datum)</td>
+            <td><div style="position: relative">@Html.TextBoxFor(model => model.datum, new { id = "dateTimeInput", Value = Model.datum.ToString("yyyy-MM-dd HH:mm") })</div></td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ak_godina)</td>
+            <td>@Html.DropDownListFor(model => model.ak_godina, new List<SelectListItem> { new SelectListItem { Text = "2017/2018", Value = "2017/2018" }, new SelectListItem { Text = "2016/2017", Value = "2016/2017" } }, new { Value = Model.ak_godina })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.tip)</td>
+            <td>@Html.DropDownListFor(model => model.tip, new List<SelectListItem> { new SelectListItem { Text = Ispiti.typesList[Ispiti.ISPIT_REDOVNI], Value = Ispiti.ISPIT_REDOVNI.ToString() }, new SelectListItem { Text = Ispiti.typesList[Ispiti.ISPIT_IZVANREDNI], Value = Ispiti.ISPIT_IZVANREDNI.ToString() } }, new { Value = Model.tip })</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit">Spremi</button>
+}
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+
+        $('#dateTimeInput').datetimepicker({
+            format: "YYYY-MM-DD HH:mm"
+        });
+
+    });
+</script>
+
+
